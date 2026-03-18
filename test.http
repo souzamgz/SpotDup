@@ -1,0 +1,8 @@
+POST http://localhost:8080/musics
+Content-Type: application/json
+
+{
+  "title": "The Worst in Me",
+  "artist": "Bad Omens",
+  "durationMs": 180000
+}
