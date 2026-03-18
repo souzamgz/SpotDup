@@ -1,8 +1,8 @@
-POST http://localhost:8080/musics
+PUT http://localhost:8080/musics/999
 Content-Type: application/json
 
 {
-  "title": "The Worst in Me",
-  "artist": "Bad Omens",
-  "durationMs": 180000
+  "title": "Teste",
+  "artist": "Teste",
+  "durationMs": 1000
 }
