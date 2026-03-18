@@ -17,4 +17,12 @@ class MusicService(private val musicRepository: MusicRepository){
     fun saveMusic(music: Music): Music {
         return musicRepository.save(music)
     }
+
+    //If gets music return music, else return Null
+
+    fun getMusicById(id: Long): Music? =
+        musicRepository.findById(id).orElse(null)
+
 }
+
+
