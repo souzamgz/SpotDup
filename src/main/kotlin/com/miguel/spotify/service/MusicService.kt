@@ -23,6 +23,23 @@ class MusicService(private val musicRepository: MusicRepository){
     fun getMusicById(id: Long): Music? =
         musicRepository.findById(id).orElse(null)
 
+    fun deleteMusicById(id: Long): Boolean {
+          val exists = musicRepository.existsById(id)
+          if (!exists) return false
+        musicRepository.deleteById(id)
+        return true
+    }
+
+    fun updateMusic(id: Long, music: Music): Music? {
+          val existingMusic = musicRepository.findById(id).orElse(null) ?: return null
+          existingMusic.title = music.title
+          existingMusic.artist = music.artist
+          existingMusic.durationMs = music.durationMs
+
+          return musicRepository.save(existingMusic)
+    }
+
+
 }
 
 
