@@ -1,5 +1,7 @@
 package com.miguel.spotify.controller
 
+import com.miguel.spotify.dto.MusicRequest
+import com.miguel.spotify.dto.MusicResponse
 import org.springframework.web.bind.annotation.RestController
 import com.miguel.spotify.service.MusicService
 import com.miguel.spotify.entity.Music
@@ -22,12 +24,13 @@ class MusicController(private val musicService: MusicService, private val musicR
     fun listMusic() = musicService.listMusic()
 
     @PostMapping
-    fun saveMusic(@RequestBody music: Music) = musicService.saveMusic(music)
+    fun saveMusic(@RequestBody request: MusicRequest) = musicService.saveMusic(request)
 
     @GetMapping("/{id}")
-    fun getById(@PathVariable id: Long): ResponseEntity<Music> {
+    fun getById(@PathVariable id: Long): ResponseEntity<MusicResponse> {
         val music = musicService.getMusicById(id)
-        return if (music != null){
+
+        return if (music != null) {
             ResponseEntity.ok(music)
         } else {
             ResponseEntity.notFound().build()
@@ -47,12 +50,12 @@ class MusicController(private val musicService: MusicService, private val musicR
     }
 
     @PutMapping("/{id}")
-    fun updateById(@PathVariable id: Long, @RequestBody music: Music): ResponseEntity<Music> {
-          val updated = musicService.updateMusic(id, music)
-          return if (music != null){
-              ResponseEntity.ok(updated)
-          } else {
-              ResponseEntity.notFound().build()
-          }
+    fun updateById(@PathVariable id: Long, @RequestBody request: MusicRequest): ResponseEntity<MusicResponse> {
+          val updated = musicService.updateMusic(id, request)
+        return if (updated != null) {
+            ResponseEntity.ok(updated)
+        } else{
+            ResponseEntity.notFound().build()
+        }
     }
 }
