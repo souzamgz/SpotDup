@@ -1,6 +1,17 @@
 package com.miguel.spotify.dto
 
-data class MusicRequest(val title: String, val artist: String, val durationMs: Long)
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.Positive
+
+data class MusicRequest(
+
+    @NotBlank
+    val title: String,
+    @NotBlank
+    val artist: String,
+    @Positive
+    val durationMs: Long
+)
 
 
 
