@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController
 import com.miguel.spotify.service.MusicService
 import com.miguel.spotify.entity.Music
 import com.miguel.spotify.repository.MusicRepository
+import jakarta.validation.Valid
 import org.springframework.data.jpa.domain.AbstractPersistable_.id
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -24,7 +25,9 @@ class MusicController(private val musicService: MusicService, private val musicR
     fun listMusic() = musicService.listMusic()
 
     @PostMapping
-    fun saveMusic(@RequestBody request: MusicRequest) = musicService.saveMusic(request)
+    fun saveMusic(
+        @Valid @RequestBody request: MusicRequest)
+    = musicService.saveMusic(request)
 
     @GetMapping("/{id}")
     fun getById(@PathVariable id: Long): ResponseEntity<MusicResponse> {
@@ -50,7 +53,10 @@ class MusicController(private val musicService: MusicService, private val musicR
     }
 
     @PutMapping("/{id}")
-    fun updateById(@PathVariable id: Long, @RequestBody request: MusicRequest): ResponseEntity<MusicResponse> {
+    fun updateById(
+        @PathVariable id: Long,
+        @Valid @RequestBody request: MusicRequest):
+            ResponseEntity<MusicResponse> {
           val updated = musicService.updateMusic(id, request)
         return if (updated != null) {
             ResponseEntity.ok(updated)
